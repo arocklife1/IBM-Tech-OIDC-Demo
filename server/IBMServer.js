@@ -1,24 +1,44 @@
 // Imports
+const { Console } = require('console');
 const express = require('express');
 const session = require('express-session');
 const OAuthContext = require('ibm-verify-sdk').OAuthContext;
-
+const cors = require("cors");
+const fs = require('fs');
+const https = require("https");
+bodyParser = require("body-parser");
 // Load contents of .env into process.env
 require('dotenv').config();
 
+
+
 // Express setup
 const app = express();
-
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }));
 
-let port = 3001;
-app.listen(port, () => {
-  console.log(`Server started.  Listening on port ${port}.`);
-})
+let accessToken = {}
+let userData = {}
+let port = process.env.PORT;
+// Creating object of key and certificate
+// for SSL
+const options = {
+  key: fs.readFileSync("./key.pem"),
+  cert: fs.readFileSync("./cert.pem"),
+};
+  
+// Creating https server by passing
+// options and app object
+https.createServer(options, app)
+.listen(port, function (req, res) {
+  console.log(`Server started at ${port}`);
+});
 
 // Instantiate OAuthContext
 let config = {
@@ -28,7 +48,7 @@ let config = {
   redirectUri: process.env.APP_URL + "/auth/callback",
   responseType: process.env.RESPONSE_TYPE,
   flowType: process.env.FLOW_TYPE,
-  scope: process.env.SCOPE
+  scope: process.env.SCOPE,
 };
 
 let authClient = new OAuthContext(config);
@@ -42,6 +62,7 @@ async function authentication_required(req, res, next) {
     next()
   } else {
     req.session.target_url = req.url;
+    console.log(req.url)
     try {
       let url = await authClient.authenticate();
       console.log("** Calling: " + url);
@@ -61,6 +82,7 @@ app.get('/auth/callback', async (req, res) => {
     console.log("** Calling token endpoint");
     let token = await authClient.getToken(req.url)
     console.log("** Response: " + JSON.stringify(token));
+    accessToken = token
     token.expiry = new Date().getTime() + (token.expires_in * 1000);
     req.session.token = token;
     let target_url = req.session.target_url ? req.session.target_url : "/";
@@ -98,12 +120,17 @@ function process_response(response) {
   return response.response;
 }
 
+
 // Home route - requires authentication
 // Uses userInfo to get user information JSON from Verify
 app.get('/', authentication_required, async (req, res) => {
   console.log("** Calling userInfo");
   let userInfo = process_response(await authClient.userInfo(req.session.token));
-  console.log("** Response:" + JSON.stringify(userInfo));
-  res.send(`<h1>Welcome ${userInfo.name}</h1>` +
-    `<p>UserID: ${userInfo.preferred_username}</p>`);
+  userData = userInfo
+  console.log("** Response:" + JSON.stringify(userInfo) + JSON.stringify(accessToken));
+  res.redirect('https://localhost:3001');
+});
+
+app.get('/data', (req, res) => {
+  res.json({userData, accessToken});
 });

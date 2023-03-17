@@ -1,0 +1,9 @@
+@use '@carbon/react';
+@use './components/Tutorialheader/tutorial-header';
+@use './content/LandingPage/landing-page';
+@use './content/RepoPage/repo-page';
+@use '@carbon/react/scss/zone';
+
+:root{
+    background-color: #161616;
+}
