@@ -61,7 +61,7 @@ PORT=3000
 In the directory where you want the repo clone directory to be created, run this command:
 
 ```
-git clone https://github.com/arocklife1/IBM-Tech-CIAM-Demo
+git clone https://github.com/arocklife1/IBM-Tech-OIDC-Demo
 ```
 
 ## Install packages
