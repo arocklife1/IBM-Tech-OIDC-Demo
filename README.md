@@ -126,9 +126,7 @@ There are 3 more things you need to do on this page:
 
 ![SaaSAppStep3.png](SaaSAppStep3.png)
 
-After that, save the application. Aafter it saves, back on the "Sign-On" tab, copy the Client ID, and Client Secret and paste them in the appropriate areas on the .env file.
-
-**Note** Do not attempt to use this client and secret. The application was deleted immediately upon creation of this repo and your application will not work.
+After that, save the application. After it saves, back on the "Sign-On" tab, copy the Client ID, and Client Secret and paste them in the appropriate areas on the .env file.
 
 ![SaaSAppStep4.png](SaaSAppStep4.png)
 
@@ -149,6 +147,6 @@ After saving the configuration, you'll be able to test the login flow. You can e
 
 ## View profile
 
-Upon a successful login, you will now be able to see the attribute information for the user as well as their access token. You can also select the "Links" tab at the top of the page to show you links to setup documetation and other useful information about security Verify SaaS
+Upon a successful login, you will now be able to see the attribute information for the user as well as their access token. You can also select the "Links" tab at the top of the page to show you links to setup documentation and other useful information about security Verify SaaS
 
 ![ReactHome.png](ReactHome.png)
