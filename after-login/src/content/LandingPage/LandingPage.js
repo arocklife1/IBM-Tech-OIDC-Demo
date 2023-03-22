@@ -13,6 +13,8 @@ const LandingPage = () => {
 
   const headers = ['Attribute Name', 'Attribute Value'];
 
+  const logoutURL = `${process.env.REACT_APP_TENANT_URL}/idaas/mtfim/sps/idaas/logout`
+
   return (
     <Content>
       <FlexGrid className="landing-page" fullWidth>
@@ -23,7 +25,7 @@ const LandingPage = () => {
         </Column>
         <Column lg={16} md={8} sm={4} className="landing-page__banner" gutter={5}>
           <Tile>
-            <Button href="https://ryanmiller.verify.ibm.com/idaas/mtfim/sps/idaas/logout">Logout</Button>
+            <Button href={logoutURL}>Logout</Button>
           </Tile>
         </Column>
         <Column lg={16} md={8} sm={4} className="landing-page__r3">
