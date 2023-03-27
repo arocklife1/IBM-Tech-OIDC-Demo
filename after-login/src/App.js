@@ -6,7 +6,7 @@ import LandingPage from './content/LandingPage';
 import RepoPage from './content/RepoPage';
 import { Content, Theme } from '@carbon/react';
 
-
+//App Routing for what to load for each URL and sets the theme to 'g100' (the dark theme)
 class App extends Component {
   render() {
     return (

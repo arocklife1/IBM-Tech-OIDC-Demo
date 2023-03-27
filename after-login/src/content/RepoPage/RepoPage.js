@@ -3,13 +3,16 @@ import { Column, FlexGrid, Table, TableHead, TableHeader, TableBody, TableCell, 
 
 const RepoPage = () => {
 
+  //Nothing fancy here. Simply a logout button and a few links to verify documentation
+
   const headers = ["Link", "Link Description"]
+
   return (
     <Content>
       <FlexGrid className="landing-page" fullWidth>
         <Column lg={16} md={8} sm={4} className="landing-page__banner" gutter={5}>
           <Tile>
-            <Button onClick={() => window.location.href("https://ryanmiller.verify.ibm.com/idaas/mtfim/sps/idaas/logout")}>Logout</Button>
+            <Button onClick={() => window.location.href(`${process.env.REACT_APP_TENANT_URL}/idaas/mtfim/sps/idaas/logout`)}>Logout</Button>
           </Tile>
         </Column>
         <Column lg={16} md={8} sm={4} className="landing-page__r3">
@@ -30,7 +33,7 @@ const RepoPage = () => {
               </TableRow>
               <TableRow>
                 <TableCell><a href='https://www.ibm.com/docs/en/security-verify'>https://www.ibm.com/docs/en/security-verify</a></TableCell>
-                <TableCell>IBM Security Verify Documentation Hub</TableCell>
+                <TableCell>IBM Security Verify Documentation</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell><a href='https://docs.verify.ibm.com/verify'>https://docs.verify.ibm.com/verify</a></TableCell>

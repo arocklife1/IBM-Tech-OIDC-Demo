@@ -3,31 +3,39 @@ import { Column, FlexGrid, Table, TableHead, TableHeader, TableBody, TableCell, 
 
 const LandingPage = () => {
 
+  //sets the data constant for the page
   const [data, setData] = useState([]);
 
+  //pulls data from the NodeJS server on page load.
   useEffect(() => {
     fetch("https://localhost:3000/data")
       .then((res) => res.json())
       .then((data) => {setData(data); console.log(data)});
   }, []);
 
+  //sets the headers for the table on the page
   const headers = ['Attribute Name', 'Attribute Value'];
 
+  //Sets the URL logout manually for each tenant
   const logoutURL = `${process.env.REACT_APP_TENANT_URL}/idaas/mtfim/sps/idaas/logout`
 
+  //Returns the HTML page 
   return (
     <Content>
       <FlexGrid className="landing-page" fullWidth>
+        {/* Header that displays the logged in user's username */}
         <Column lg={16} md={8} sm={4} className="landing-page__banner" gutter={5}>
           <Tile>
             <h1>Welcome {data?.userData?.displayName}</h1>
           </Tile>
         </Column>
+        {/* Simple logout button using the logout URL */}
         <Column lg={16} md={8} sm={4} className="landing-page__banner" gutter={5}>
           <Tile>
             <Button href={logoutURL}>Logout</Button>
           </Tile>
         </Column>
+        {/* The table of data */}
         <Column lg={16} md={8} sm={4} className="landing-page__r3">
           <Table size="lg" useZebraStyles={false}>
             <TableHead>
@@ -103,6 +111,7 @@ const LandingPage = () => {
             </TableBody>
           </Table>
         </Column>
+        {/* Code snippet showing the raw data that can be copied. */}
         <Column lg={16} md={8} sm={4} className="landing-page__r3">
           <Tile>
             Raw Data: <CodeSnippet type="multi" feedback="Copied to clipboard">{JSON.stringify(data)}</CodeSnippet>
