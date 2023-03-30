@@ -10,11 +10,10 @@ bodyParser = require("body-parser");
 // Load contents of .env into process.env
 require('dotenv').config();
 
-
-
 // Express setup
 const app = express();
 app.use(cors());
+//necessary to read/format JSON
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(session({
@@ -26,8 +25,7 @@ app.use(session({
 let accessToken = {}
 let userData = {}
 let port = process.env.PORT;
-// Creating object of key and certificate
-// for SSL
+// Creating object of key and certificate for SSL
 const options = {
   key: fs.readFileSync("./key.pem"),
   cert: fs.readFileSync("./cert.pem"),
@@ -131,6 +129,7 @@ app.get('/', authentication_required, async (req, res) => {
   res.redirect('https://localhost:3001');
 });
 
+// custom call to pull the data once redirected to the app
 app.get('/data', (req, res) => {
   res.json({userData, accessToken});
 });

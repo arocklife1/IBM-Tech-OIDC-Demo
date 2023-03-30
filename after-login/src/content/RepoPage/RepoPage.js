@@ -6,13 +6,14 @@ const RepoPage = () => {
   //Nothing fancy here. Simply a logout button and a few links to verify documentation
 
   const headers = ["Link", "Link Description"]
+  const logoutURL = `${process.env.REACT_APP_TENANT_URL}/idaas/mtfim/sps/idaas/logout`
 
   return (
     <Content>
       <FlexGrid className="landing-page" fullWidth>
         <Column lg={16} md={8} sm={4} className="landing-page__banner" gutter={5}>
           <Tile>
-            <Button onClick={() => window.location.href(`${process.env.REACT_APP_TENANT_URL}/idaas/mtfim/sps/idaas/logout`)}>Logout</Button>
+            <Button href={logoutURL}>Logout</Button>
           </Tile>
         </Column>
         <Column lg={16} md={8} sm={4} className="landing-page__r3">

@@ -11,11 +11,13 @@ class App extends Component {
   render() {
     return (
       <>
+      {/* sets the theme to "dark" */}
         <Theme theme="g100">
           <TutorialHeader />
         </Theme>
         <Theme theme='g100'>
         <Content>
+          {/*Sets the two routes for the app*/}
           <Routes>
             <Route exact path="/" element={<LandingPage />}/>
             <Route path="/links" element={<RepoPage />}/>
